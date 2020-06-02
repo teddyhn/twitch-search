@@ -3,11 +3,11 @@
     <div class="container">
       <search-bar @add:user="addUser" @set:isLoading="setIsLoading" />
       <b-spinner v-if="isLoading" />
-      <div class="twitch-channel" v-if="twitchuser.name">
+      <div class="twitch-channel" v-if="twitchuser.display_name">
         <p class="display-name">{{ twitchuser.display_name }}</p>
         <p class="followers">{{ twitchuser.followers }}</p>
       </div>
-      <div v-else-if="twitchuser.error">
+      <div v-else-if="!twitchuser.display_name">
         <p class="error">No Twitch user found!</p>
       </div>
     </div>
