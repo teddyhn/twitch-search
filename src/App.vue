@@ -7,7 +7,7 @@
         <p class="display-name">{{ twitchuser.display_name }}</p>
         <p class="followers">{{ twitchuser.followers }}</p>
       </div>
-      <div v-else-if="!twitchuser.display_name">
+      <div v-else-if="twitchuser.name && !twitchuser.display_name">
         <p class="error">No Twitch user found!</p>
       </div>
     </div>
