@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <div class="container">
-      <search-bar @add:user="addUser" />
+      <search-bar @add:user="addUser" @set:isLoading="setIsLoading" />
+      <b-spinner v-if="isLoading" />
       <div class="twitch-channel" v-if="twitchuser.name">
         <p class="display-name">{{ twitchuser.display_name }}</p>
         <p class="followers">{{ twitchuser.followers }}</p>
       </div>
-      <div v-if="twitchuser.error">
+      <div v-else-if="twitchuser.error">
         <p class="error">No Twitch user found!</p>
       </div>
     </div>
@@ -23,12 +24,17 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       twitchuser: {}
     }
   },
   methods: {
     addUser(user) {
       this.twitchuser = user
+      this.isLoading = false
+    },
+    setIsLoading(bool) {
+      this.isLoading = bool
     }
   }
 }
@@ -54,6 +60,10 @@ export default {
   width: 30%;
   margin: 0 auto;
   border: 1px solid rgb(59, 59, 59);
-  padding: 0 0.5rem;
+  padding: 0.5rem;
+}
+
+.twitch-channel > p {
+  margin: 0;
 }
 </style>
