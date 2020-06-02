@@ -19,16 +19,13 @@
     methods: {
         async handleSubmit() {
             try {
-                const response = await fetch(`https://api.twitch.tv/kraken/channels/${this.query}`, {
-                                            method: 'GET',
-                                            headers: {
-                                                'client-id': 'kimne78kx3ncx6brgo4mv6wki5h1ko'
-                                            }
-                                        });
+                this.$emit('set:isLoading', true)
+                const response = await fetch(`https://twitch-search-backend.herokuapp.com/search/${this.query}`, { method: 'GET' });
                 const data = await response.json()
                 this.queriedUser = data
                 this.$emit('add:user', this.queriedUser)
             } catch (error) {
+                this.$emit('set:isLoading', false)
                 console.error(error)
             }
         }
@@ -44,17 +41,13 @@
 .search {
     display: flex;
     justify-content: space-between;
-    height: 50px;
     width: 30%;
     margin: 40vh auto 0 auto;
 }
 
 .search > input {
-    width: 83%;
-    padding-left: 0.5rem;
-}
-
-.search > button {
-    width: 15%;
+    padding: 0.5rem;
+    width: 100%;
+    margin-right: 0.5rem;
 }
 </style>
