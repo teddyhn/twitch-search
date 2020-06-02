@@ -20,12 +20,7 @@
         async handleSubmit() {
             try {
                 this.$emit('set:isLoading', true)
-                const response = await fetch(`https://api.twitch.tv/kraken/channels/${this.query}`, {
-                                            method: 'GET',
-                                            headers: {
-                                                'client-id': 'kimne78kx3ncx6brgo4mv6wki5h1ko'
-                                            }
-                                        });
+                const response = await fetch(`https://twitch-search-backend.herokuapp.com/search/${this.query}`, { method: 'GET' });
                 const data = await response.json()
                 this.queriedUser = data
                 this.$emit('add:user', this.queriedUser)
