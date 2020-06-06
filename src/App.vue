@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <div class="container">
-      <search-bar @add:user="addUser" @set:isLoading="setIsLoading" />
-      <b-spinner v-if="isLoading" />
-      <div class="twitch-channel" v-if="twitchuser.display_name">
-        <p class="display-name">{{ twitchuser.display_name }}</p>
-        <p class="followers">{{ twitchuser.followers }}</p>
-      </div>
-      <div v-else-if="twitchuser.name && !twitchuser.display_name">
-        <p class="error">No Twitch user found!</p>
+      <h2>Search for a Twitch user</h2>
+      <search-bar @add:user="addUser" @set:query="setQuery" @set:isLoading="setIsLoading" />
+      <div class="message">
+        <div class="twitch-channel" v-if="twitchuser && twitchuser.display_name">
+          <p class="display-name">{{ twitchuser.display_name }}</p>
+          <p class="followers">Followers: {{ twitchuser.followers }}</p>
+        </div>
+        <div class="error" v-if="twitchuser === null">
+          <p>No Twitch user found!</p>
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +27,7 @@ export default {
   data() {
     return {
       isLoading: false,
-      twitchuser: {}
+      twitchuser: {},
     }
   },
   methods: {
@@ -41,29 +43,54 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap');
+
+body {
+  box-sizing: border-box;
+  background-color: #12141d;
+  font-family: Inter, sans-serif;
+  color: #333;
+  margin: 0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  height: 100vh;
+  display: flex;
+  align-items: center;
 }
 
 .container {
-  height: 100%;
+  background-color: hsla(0,0%,100%,.05);
+  padding: 48px;
+  max-width: 1296px;
+  width: 33%;
+  margin: 0 auto;
+  border-radius: 12px;
 }
 
-.twitch-channel {
+.container h2 {
+  text-align: left;
+  color: #fff;
+}
+
+.message {
+  font-size: 18px;
+  height: 52px;
+}
+
+.message > div {
+  color: #fff;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  width: 30%;
   margin: 0 auto;
-  border: 1px solid rgb(59, 59, 59);
-  padding: 0.5rem;
 }
 
-.twitch-channel > p {
-  margin: 0;
+.error p {
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
