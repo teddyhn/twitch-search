@@ -4,11 +4,14 @@
       <h2>Search for a Twitch user</h2>
       <search-bar @add:user="addUser" @set:query="setQuery" @set:isLoading="setIsLoading" />
       <div class="message">
-        <div class="twitch-channel" v-if="twitchuser && twitchuser.display_name">
+        <div class="spinner" v-if="isLoading">
+          <vue-simple-spinner size="medium" line-bg-color="#333" />
+        </div>
+        <div class="twitch-channel" v-if="twitchuser && twitchuser.display_name && !isLoading">
           <p class="display-name">{{ twitchuser.display_name }}</p>
           <p class="followers">Followers: {{ twitchuser.followers }}</p>
         </div>
-        <div class="error" v-if="twitchuser === null">
+        <div class="error" v-if="twitchuser === null && !isLoading">
           <p>No Twitch user found!</p>
         </div>
       </div>
@@ -86,6 +89,14 @@ body {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  margin: 0 auto;
+}
+
+.spinner {
+  padding-top: 18px;
+}
+
+.spinner > div {
   margin: 0 auto;
 }
 
