@@ -69,7 +69,7 @@ body {
   background-color: hsla(0,0%,100%,.05);
   padding: 48px;
   max-width: 1296px;
-  width: 33%;
+  width: 40%;
   margin: 0 auto;
   border-radius: 12px;
 }
@@ -103,5 +103,12 @@ body {
 .error p {
   margin-left: auto;
   margin-right: auto;
+}
+
+@media screen and (max-width: 991px) {
+  .container {
+    width: 100%;
+    margin: 0 24px;
+  }
 }
 </style>
